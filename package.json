@@ -7,7 +7,7 @@
     "start": "node ./index.js",
     "dev": "cross-env NODE_ENV=development nodemon ./index.js",
     "prod": "cross-env NODE_ENV=production node ./index.js",
-    "build": "sequelize-cli db:migrate",
+    "build": "sequelize-cli init",
     "lint": "eslint src --color",
     "lint:fix": "eslint src --color --fix",
     "prettier": "prettier --write \"src/**/*.js\""
