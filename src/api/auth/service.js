@@ -33,7 +33,9 @@ const loginUser = async (email, password) => {
 };
 
 const regUser = async (email, password, username) => {
-  const candidate = await User.findOne({ where: { email }, raw: true, nest: true });
+  console.log('SERVICEPARAMS', { email, password, username });
+  console.log('USER MODEL', User);
+  const candidate = await User.findOne({ where: { email } });
   console.log('CANDIDATE', candidate);
   if (candidate) {
     throw new Error('Пользователь уже существует');
