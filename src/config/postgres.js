@@ -7,9 +7,7 @@ const { postgres } = config;
 
 const sequelize = new Sequelize(postgres.uri, {
   logging: false,
-  dialectOptions: {
-    ssl: true
-  }
+  dialectOptions: { ssl: { require: true, rejectUnauthorized: false } }
 });
 
 export default function initializeDbPostgres() {
@@ -25,9 +23,12 @@ export default function initializeDbPostgres() {
       Object.values(models).forEach(model => {
         if (typeof model.associate === 'function') model.associate(models);
       });
-      return sequelize.sync().catch(err => {
-        throw new Error(err);
-      });
+      return sequelize
+        .sync()
+        .then('Sequelize: connected to db')
+        .catch(err => {
+          throw new Error(err);
+        });
     })
     .catch(err => {
       console.log(err);
