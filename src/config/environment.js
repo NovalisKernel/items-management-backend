@@ -13,6 +13,8 @@ const { error: validationError, value: envVars } = joi.validate(
   envConfigSchema
 );
 
+console.log('ENVVARS', envVars);
+
 if (validationError) {
   throw new Error(`Config validation error: ${validationError.message}`);
 }
