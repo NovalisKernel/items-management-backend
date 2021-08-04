@@ -8,7 +8,7 @@ const { postgres } = config;
 const sequelize = new Sequelize(postgres.uri, {
   logging: false,
   dialectOptions: {
-    ssl: false
+    ssl: true
   }
 });
 
