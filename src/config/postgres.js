@@ -35,3 +35,5 @@ export default function initializeDbPostgres() {
       process.exit(1);
     });
 }
+
+export { sequelize };
