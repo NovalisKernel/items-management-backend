@@ -34,7 +34,7 @@ const loginUser = async (email, password) => {
 
 const regUser = async (email, password, username) => {
   console.log('SERVICEPARAMS', { email, password, username });
-  console.log('USER MODEL', User);
+  console.log('USER MODEL', await User.findOne({ where: { email } }));
   const candidate = await User.findOne({ where: { email } });
   console.log('CANDIDATE', candidate);
   if (candidate) {
