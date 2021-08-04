@@ -1,12 +1,10 @@
 import bcrypt from 'bcrypt';
 import jwt from 'jsonwebtoken';
 import config from '../../config/environment';
-// import User from '../../models/user.model';
-import { sequelize } from '../../config/postgres';
+import { User } from '../../models';
 
 const loginUser = async (email, password) => {
   const { jwtSecret, jwtTimeToLive } = config.auth;
-  const User = sequelize.models.User;
   const user = await User.findOne({ where: { email }, raw: true, nest: true });
   if (!user) {
     throw new Error('Пользователь не найден');
@@ -34,10 +32,7 @@ const loginUser = async (email, password) => {
 };
 
 const regUser = async (email, password, username) => {
-  console.log('SERVICEPARAMS', sequelize.models);
-  const User = sequelize.models.User;
   const candidate = await User.findOne({ where: { email } });
-  console.log('CANDIDATE', candidate);
   if (candidate) {
     throw new Error('Пользователь уже существует');
   }
