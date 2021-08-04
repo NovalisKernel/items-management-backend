@@ -1,7 +1,7 @@
 import bcrypt from 'bcrypt';
 import jwt from 'jsonwebtoken';
-import { User } from '../../models';
 import config from '../../config/environment';
+import User from '../../models/user.model';
 
 const loginUser = async (email, password) => {
   const { jwtSecret, jwtTimeToLive } = config.auth;
@@ -34,7 +34,6 @@ const loginUser = async (email, password) => {
 
 const regUser = async (email, password, username) => {
   console.log('SERVICEPARAMS', { email, password, username });
-  console.log('USER MODEL', await User.findOne({ where: { email } }));
   const candidate = await User.findOne({ where: { email } });
   console.log('CANDIDATE', candidate);
   if (candidate) {
