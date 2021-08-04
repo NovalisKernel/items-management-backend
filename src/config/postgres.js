@@ -10,31 +10,26 @@ const sequelize = new Sequelize(postgres.uri, {
   dialectOptions: { ssl: { require: true, rejectUnauthorized: false } }
 });
 
-export default function initializeDbPostgres() {
-  sequelize
-    .authenticate()
-    .then(() => {
-      logger.info('Postgre: Connection has been established successfully.');
+export default async function initializeDbPostgres(callback) {
+  try {
+    await sequelize.authenticate();
+    logger.info(
+      `Postgre: Connection has been established successfully to ${sequelize.config.host}`
+    );
 
-      const models = {
-        User: User.init(sequelize)
-      };
+    const models = {
+      User: User.init(sequelize)
+    };
 
-      Object.values(models).forEach(model => {
-        if (typeof model.associate === 'function') model.associate(models);
-      });
-      return sequelize
-        .sync()
-        .then('Sequelize: connected to db')
-        .catch(err => {
-          throw new Error(err);
-        });
-    })
-    .catch(err => {
-      console.log(err);
-      logger.error('Sequelize: Unable to connect to the database: ' + err.toString());
-      process.exit(1);
+    Object.values(models).forEach(model => {
+      if (typeof model.associate === 'function') model.associate(models);
     });
+    await sequelize.sync();
+    return callback(sequelize);
+  } catch (err) {
+    logger.error('Sequelize: Unable to connect to the database: ' + err.toString());
+    process.exit(1);
+  }
 }
 
 export { sequelize };
