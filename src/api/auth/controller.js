@@ -13,6 +13,7 @@ const loginController = async (req, res) => {
 const regController = async (req, res) => {
   try {
     const { email, password, username } = req.body;
+    console.log('BODY', req.body);
     const newUser = await regUser(email, password, username);
     res.status(200).json({
       message: 'Success'
