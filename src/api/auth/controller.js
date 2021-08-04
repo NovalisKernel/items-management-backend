@@ -19,6 +19,7 @@ const regController = async (req, res) => {
       message: 'Success'
     });
   } catch (e) {
+    console.log('ERROR', e);
     res.status(500).json({ message: e.message || 'Something went wrong' });
   }
 };
