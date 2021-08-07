@@ -1,8 +1,9 @@
 import { Router } from 'express';
 import authRouter from './api/auth';
+import itemsRouter from './api/items';
 import { version } from '../package.json';
 
-import passport from 'passport';
+import passport from './config/passport';
 
 const router = Router();
 
@@ -17,5 +18,6 @@ router.get('/', (req, res) => {
 });
 
 router.use('/auth', authRouter);
+router.use('/items', passport.authenticate('jwt', { session: false }), itemsRouter);
 
 export default router;

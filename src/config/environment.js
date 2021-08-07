@@ -29,5 +29,10 @@ export default {
   auth: {
     jwtSecret: envVars.JWT_SECRET,
     jwtTimeToLive: envVars.JWT_TIME_TO_LIVE
+  },
+  cloudinaryEnv: {
+    cloudinaryCloudName: envVars.CLOUDINARY_CLOUD_NAME,
+    cloudinaryApiKey: envVars.CLOUDINARY_API_KEY,
+    cloudinaryApiSecret: envVars.CLOUDINARY_API_SECRET
   }
 };

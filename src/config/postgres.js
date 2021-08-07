@@ -1,6 +1,6 @@
 import { Sequelize } from 'sequelize';
 import config from './environment';
-import { User } from '../models';
+import { User, Item } from '../models';
 import logger from './logger';
 
 const { postgres } = config;
@@ -18,7 +18,8 @@ export default async function initializeDbPostgres(callback) {
     );
 
     const models = {
-      User: User.init(sequelize)
+      User: User.init(sequelize),
+      Item: Item.init(sequelize)
     };
 
     Object.values(models).forEach(model => {
