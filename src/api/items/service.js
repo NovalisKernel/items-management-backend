@@ -13,7 +13,7 @@ const addItem = async (data, userId, file) => {
   if (file) {
     const fileUri = dataUri(file).content;
     const uploadedImage = await cloudinaryInstance().v2.uploader.upload(fileUri);
-    imageUrl = uploadedImage.url;
+    imageUrl = uploadedImage.secure_url;
   }
   const created = await Item.create({
     ...data,
