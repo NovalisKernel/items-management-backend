@@ -28,14 +28,14 @@ const updateItem = async (data, userId, file, itemId) => {
   if (file) {
     const fileUri = dataUri(file).content;
     const uploadedImage = await cloudinaryInstance().v2.uploader.upload(fileUri);
-    imageUrl = uploadedImage.url;
+    imageUrl = uploadedImage.secure_url;
   }
   const created = await Item.update(
-    { id: itemId },
+    { ...data, ownerId: userId, imageUrl: imageUrl },
     {
-      ...data,
-      ownerId: userId,
-      imageUrl: imageUrl
+      where: {
+        id: itemId
+      }
     }
   );
   return created;
